@@ -130,4 +130,16 @@
         android:text="Please find your location..."
         android:textSize="22sp" />
 
+    <TextView
+        android:id="@+id/textAddress"
+        android:textSize="22dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonRetrieve"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:visibility="gone" />
+
 </RelativeLayout>

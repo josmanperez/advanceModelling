@@ -1,12 +1,11 @@
 package advance.modelling.yourvisit;
 
-import java.io.IOException;
 import java.util.List;
 
-import advance.modelling.yourvisit.Geocoder.LimitExceededException;
 import advance.modelling.yourvistit.R;
 import android.app.Activity;
 import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +23,7 @@ public class MainActivity extends Activity {
 	ImageButton btnShowLocationImage;
 
 	private ProgressBar mProgressBar;
+	private TextView addressName;
 
 	private final String TAG = "GPS-Tracking";
 	private List<Address> address = null;
@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
 
 		btnShowLocationImage = (ImageButton) findViewById(advance.modelling.yourvistit.R.id.searchImageButton);
 
+		addressName = (TextView) findViewById(R.id.textAddress);
 		// show location button click event
 		btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
@@ -78,17 +79,17 @@ public class MainActivity extends Activity {
 
 					// This is for shown the address
 
-					Geocoder geoCoder2 = new Geocoder(MainActivity.this);
-					try {
-						address = geoCoder2.getFromLocation(latitude,
-								longitude, 3);
-						showToastText(address.toString()).show();
-						Log.i(TAG, "aqui " + address.toString());
-					} catch (Exception e) { // // TODO Auto-generated catch
-											// block
-						Log.i(TAG, e.toString() + " cachis");
-
-					}
+//					Geocoder geoCoder2 = new Geocoder(MainActivity.this);
+//					try {
+//						address = geoCoder2.getFromLocation(latitude,
+//								longitude, 3);
+//						showToastText(address.toString()).show();
+//						Log.i(TAG, "aqui " + address.toString());
+//					} catch (Exception e) { // // TODO Auto-generated catch
+//											// block
+//						Log.i(TAG, e.toString() + " cachis");
+//
+//					}
 
 					// Log.i(TAG,address.toString());
 					// Geocoder(getApplicationContext(),
@@ -150,14 +151,14 @@ public class MainActivity extends Activity {
 		@Override
 		protected Void doInBackground(Double... params) {
 			// TODO Auto-generated method stub
-			// Geocoder geoCoder2 = new Geocoder(getApplicationContext());
-			// try {
-			// Log.i(TAG, params[0] + " " + params[1]);
-			// address = geoCoder2.getFromLocation(params[0], params[1], 3);
-			// Log.i(TAG, "aqui " + address.toString());
-			// } catch (Exception e) { // // TODO Auto-generated catch block
-			// Log.i(TAG, e.toString() + " cachis");
-			// }
+			 Geocoder geoCoder2 = new Geocoder(getApplicationContext());
+			 try {
+			 Log.i(TAG, params[0] + " " + params[1]);
+			 address = geoCoder2.getFromLocation(params[0], params[1], 3);
+			 Log.i(TAG, "aqui " + address.toString());
+			 } catch (Exception e) { // // TODO Auto-generated catch block
+			 Log.i(TAG, e.toString() + " cachis");
+			 }
 			/*
 			 * for (int i = 1; i < 11; i++) { try { Thread.sleep(500); } catch
 			 * (InterruptedException e) { // TODO Auto-generated catch block
@@ -177,7 +178,11 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			mProgressBar.setVisibility(View.GONE);
-			// showToastText(address.toString()).show();
+			try {
+			showToastText(address.toString()).show();
+			} catch (Exception e) {
+				Log.i(TAG,e.toString());
+			}
 			super.onPostExecute(result);
 		}
 	}
