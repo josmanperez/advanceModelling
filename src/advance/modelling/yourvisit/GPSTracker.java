@@ -1,4 +1,4 @@
-package advance.modelling.yourvistit;
+package advance.modelling.yourvisit;
 
 import android.app.AlertDialog;
 import android.app.Service;

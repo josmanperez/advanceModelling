@@ -8,18 +8,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/titleMain"
+    <ImageButton
+        android:id="@+id/searchImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:text="Please find your location..."
-        android:textSize="22sp" />
+        android:adjustViewBounds="true"
+        android:background="@layout/blue_button"
+        android:scaleType="fitXY"
+        android:src="@drawable/search" />
 
     <Button
         android:id="@+id/buttonRetrieve"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -28,12 +30,70 @@
         android:background="@layout/blue_button"
         android:text="Retrieve location" />
 
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                style="@style/ButtonText"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@layout/blue_button"
+                android:text="Restaurant" />
+
+            <Button
+                style="@style/ButtonText"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@layout/blue_button"
+                android:text="Drinks" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
+
+            <Button
+                style="@style/ButtonText"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@layout/blue_button"
+                android:text="Atractions" />
+
+            <Button
+                style="@style/ButtonText"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@layout/blue_button"
+                android:text="Party" />
+        </TableRow>
+    </TableLayout>
+
     <LinearLayout
         android:id="@+id/LinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/searchImageButton"
+        android:layout_above="@id/tableLayout"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:orientation="vertical" >
 
         <TextView
@@ -52,5 +112,16 @@
             android:textSize="22sp"
             android:visibility="invisible" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/searchImageButton"
+        android:layout_alignRight="@id/buttonRetrieve"
+        android:layout_alignTop="@id/searchImageButton"
+        android:gravity="center"
+        android:text="Please find your location..."
+        android:textSize="22sp" />
 
 </RelativeLayout>
