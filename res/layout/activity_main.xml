@@ -19,17 +19,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/search" />
 
-    <Button
-        android:id="@+id/buttonRetrieve"
-        style="@style/ButtonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:background="@layout/blue_button"
-        android:text="Retrieve location" />
-
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
@@ -51,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@layout/blue_button"
-                android:text="Restaurant" />
+                android:text="Restaurant" 
+                android:onClick="restaurantChoice"/>
 
             <Button
                 style="@style/ButtonText"
@@ -90,10 +80,10 @@
         android:id="@+id/LinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchImageButton"
         android:layout_above="@id/tableLayout"
-        android:gravity="center"
+        android:layout_below="@id/searchImageButton"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -107,8 +97,8 @@
         <ProgressBar
             android:id="@+id/progressBar1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:visibility="gone"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/longitudText"
@@ -124,22 +114,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/searchImageButton"
-        android:layout_alignRight="@id/buttonRetrieve"
         android:layout_alignTop="@id/searchImageButton"
+        android:layout_toLeftOf="@id/searchImageButton"
         android:gravity="center"
         android:text="Please find your location..."
         android:textSize="22sp" />
 
     <TextView
         android:id="@+id/textAddress"
-        android:textSize="22dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonRetrieve"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15sp"
         android:gravity="center"
+        android:textSize="22dp"
         android:visibility="gone" />
 
 </RelativeLayout>

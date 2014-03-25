@@ -4,6 +4,7 @@ import java.util.List;
 
 import advance.modelling.yourvistit.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -31,8 +32,8 @@ public class MainActivity extends Activity {
 
 	private boolean FLAG_FOR_VISIBILITY = false;
 
-	private double latitude;
-	private double longitude;
+	private double latitude = 0.0;
+	private double longitude = 0.0;
 
 	// GPSTracker class
 	GPSTracker gps;
@@ -40,20 +41,19 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(advance.modelling.yourvistit.R.layout.activity_main);
+		setContentView(R.layout.activity_main);
 
 		// This is for showing the address
 		// final Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
 
 		mProgressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
-		btnShowLocation = (Button) findViewById(R.id.buttonRetrieve);
-
-		btnShowLocationImage = (ImageButton) findViewById(advance.modelling.yourvistit.R.id.searchImageButton);
+		btnShowLocationImage = (ImageButton) findViewById(R.id.searchImageButton);
 
 		addressName = (TextView) findViewById(R.id.textAddress);
+
 		// show location button click event
-		btnShowLocation.setOnClickListener(new View.OnClickListener() {
+		btnShowLocationImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -79,17 +79,17 @@ public class MainActivity extends Activity {
 
 					// This is for shown the address
 
-//					Geocoder geoCoder2 = new Geocoder(MainActivity.this);
-//					try {
-//						address = geoCoder2.getFromLocation(latitude,
-//								longitude, 3);
-//						showToastText(address.toString()).show();
-//						Log.i(TAG, "aqui " + address.toString());
-//					} catch (Exception e) { // // TODO Auto-generated catch
-//											// block
-//						Log.i(TAG, e.toString() + " cachis");
-//
-//					}
+					// Geocoder geoCoder2 = new Geocoder(MainActivity.this);
+					// try {
+					// address = geoCoder2.getFromLocation(latitude,
+					// longitude, 3);
+					// showToastText(address.toString()).show();
+					// Log.i(TAG, "aqui " + address.toString());
+					// } catch (Exception e) { // // TODO Auto-generated catch
+					// // block
+					// Log.i(TAG, e.toString() + " cachis");
+					//
+					// }
 
 					// Log.i(TAG,address.toString());
 					// Geocoder(getApplicationContext(),
@@ -108,11 +108,11 @@ public class MainActivity extends Activity {
 							+ Double.valueOf(longitude).toString());
 					textLatitude.setVisibility(View.VISIBLE);
 					textLongitude.setVisibility(View.VISIBLE);
-					if (textLatitude.getVisibility() == View.VISIBLE
-							|| textLongitude.getVisibility() == View.VISIBLE) {
-						btnShowLocation.setVisibility(View.INVISIBLE);
-						FLAG_FOR_VISIBILITY = true;
-					}
+					// if (textLatitude.getVisibility() == View.VISIBLE
+					// || textLongitude.getVisibility() == View.VISIBLE) {
+					// btnShowLocation.setVisibility(View.INVISIBLE);
+					// FLAG_FOR_VISIBILITY = true;
+					// }
 
 				} else {
 					// can't get location
@@ -137,8 +137,23 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	// This method is selected when the user clicks on Restaurant
+	public void restaurantChoice(View v) {
+		if (longitude == 0.0 && latitude == 0.0) {
+			showToastText("Please find your location first").show();
+		} else {
+			Intent i = new Intent(this, Restaurant.class);
+			Log.i(TAG, "lat: " + latitude);
+			i.putExtra("Lat", latitude);
+			i.putExtra("Long", longitude);
+			startActivity(i);
+		}
+	}
+
 	// AsynTask class
 	class LoadProgressBar extends AsyncTask<Double, Integer, Void> {
+
+		private boolean internetAccess = true;
 
 		@Override
 		protected void onPreExecute() {
@@ -151,19 +166,16 @@ public class MainActivity extends Activity {
 		@Override
 		protected Void doInBackground(Double... params) {
 			// TODO Auto-generated method stub
-			 Geocoder geoCoder2 = new Geocoder(getApplicationContext());
-			 try {
-			 Log.i(TAG, params[0] + " " + params[1]);
-			 address = geoCoder2.getFromLocation(params[0], params[1], 3);
-			 Log.i(TAG, "aqui " + address.toString());
-			 } catch (Exception e) { // // TODO Auto-generated catch block
-			 Log.i(TAG, e.toString() + " cachis");
-			 }
-			/*
-			 * for (int i = 1; i < 11; i++) { try { Thread.sleep(500); } catch
-			 * (InterruptedException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } publishProgress(i * 10); }
-			 */
+			Geocoder geoCoder2 = new Geocoder(getApplicationContext());
+			try {
+				Log.i(TAG, params[0] + " " + params[1]);
+				address = geoCoder2.getFromLocation(params[0], params[1], 3);
+				Log.i(TAG, "aqui " + address.toString());
+			} catch (Exception e) { // // TODO Auto-generated catch block
+				Log.i(TAG, e.toString() + " cachis ");
+				internetAccess = false;
+
+			}
 			return null;
 		}
 
@@ -179,9 +191,16 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			mProgressBar.setVisibility(View.GONE);
 			try {
-			showToastText(address.toString()).show();
+				if (!internetAccess) {
+					Toast.makeText(getApplicationContext(),
+							"Unable to find location, turn on your internet",
+							Toast.LENGTH_LONG).show();
+				}
+				addressName.setText(address.get(0).getAddressLine(0).toString()
+						+ " " + address.get(0).getAddressLine(1).toString());
+				addressName.setVisibility(View.VISIBLE);
 			} catch (Exception e) {
-				Log.i(TAG,e.toString());
+				Log.i(TAG, e.toString());
 			}
 			super.onPostExecute(result);
 		}
