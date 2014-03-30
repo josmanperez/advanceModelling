@@ -91,4 +91,5 @@ public class Restaurant extends Activity implements OnItemSelectedListener {
 				Toast.LENGTH_LONG).show();
 
 	}
+
 }
