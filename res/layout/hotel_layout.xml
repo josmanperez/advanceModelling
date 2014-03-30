@@ -8,11 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#449def"
+        android:background="@android:color/holo_blue_light"
         android:gravity="center_horizontal" >
 
         <TextView
-            android:id="@+id/typeRestaurant"
+            android:id="@+id/typeDrinks"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_marginTop="8sp" >
 
         <RadioGroup
-            android:id="@+id/radioGroupRestaurant"
+            android:id="@+id/radioGroupHotel"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center_vertical"
@@ -36,32 +36,24 @@
             android:weightSum="2" >
 
             <RadioButton
-                android:id="@+id/radioButton1"
+                android:id="@+id/radioButtonHotel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12sp"
                 android:layout_weight="1"
-                android:checked="true"
                 android:gravity="center"
-                android:text="Fast food" />
+                android:text="Hotel" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioButtonMotel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="true"
                 android:gravity="center"
-                android:text="Restaurant" />
+                android:text="Motel" />
         </RadioGroup>
     </LinearLayout>
-
-    <!--
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/linearLayout1"
-        android:background="@android:color/darker_gray" />
-    -->
 
     <TextView
         android:id="@+id/textRangeOfPrices"
@@ -92,14 +84,6 @@
             android:gravity="center" />
     </LinearLayout>
 
-    <!--
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/linearLayout2"
-        android:background="@android:color/darker_gray" />
-    -->
-
     <TextView
         android:id="@+id/textViewDistance"
         style="@style/textStyle"
@@ -129,6 +113,76 @@
             android:gravity="center" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textViewRating"
+        style="@style/textStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout3"
+        android:layout_centerHorizontal="true"
+        android:background="#449def"
+        android:gravity="center"
+        android:text="Rating"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textViewBreakfast"
+        style="@style/textStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout3"
+        android:layout_centerHorizontal="true"
+        android:background="#449def"
+        android:gravity="center"
+        android:text="With Breakfast?"
+        android:textSize="22sp"
+        android:visibility="visible" />
+
+    <RatingBar
+        android:id="@+id/ratingBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewRating"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewBreakfast"
+        android:layout_marginTop="8sp"
+        android:visibility="visible" >
+
+        <RadioGroup
+            android:id="@+id/radioGroupBreakfast"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <RadioButton
+                android:id="@+id/radioButtonB1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12sp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Yes" />
+
+            <RadioButton
+                android:id="@+id/radioButtonB2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="No" />
+        </RadioGroup>
+    </LinearLayout>
+
     <Button
         android:id="@+id/buttonGenerateRestaurant"
         style="@style/ButtonText"
@@ -137,7 +191,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@layout/blue_button"
-        android:onClick="generateRestaurant"
+        android:onClick="generateHotel"
         android:text="Generate" />
 
 </RelativeLayout>

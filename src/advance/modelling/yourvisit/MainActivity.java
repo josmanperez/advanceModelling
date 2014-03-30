@@ -149,6 +149,33 @@ public class MainActivity extends Activity {
 			startActivity(i);
 		}
 	}
+	
+	
+	// This method is selected when a user clicks on drinks button
+	public void drinksChoice(View v) {
+		if (longitude == 0.0 && latitude == 0.0) {
+			showToastText("Please find your location first").show();
+		} else {
+			Intent i = new Intent(this, Drinks.class);
+			i.putExtra("Lat", latitude);
+			i.putExtra("Long", longitude);
+			startActivity(i);
+		}
+
+	}
+	
+	// This method is shown when a user clicks on hotels button
+	public void hotelChoice(View v) {
+		if (longitude == 0.0 && latitude == 0.0) {
+			showToastText("Please find your location first").show();
+		} else {
+			Intent i = new Intent(this, Hotels.class);
+			i.putExtra("Lat", latitude);
+			i.putExtra("Long", longitude);
+			startActivity(i);
+		}
+		
+	}
 
 	// AsynTask class
 	class LoadProgressBar extends AsyncTask<Double, Integer, Void> {

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ShowRestaurant extends Activity {
+public class ShowDrinks extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

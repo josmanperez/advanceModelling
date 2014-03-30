@@ -48,6 +48,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="drinksChoice"
                 android:background="@layout/blue_button"
                 android:text="Drinks" />
         </TableRow>
@@ -71,8 +72,9 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="hotelChoice"
                 android:background="@layout/blue_button"
-                android:text="Party" />
+                android:text="Hotels" />
         </TableRow>
     </TableLayout>
 

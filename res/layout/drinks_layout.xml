@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -12,7 +11,7 @@
         android:gravity="center_horizontal" >
 
         <TextView
-            android:id="@+id/typeRestaurant"
+            android:id="@+id/typeDrinks"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +32,7 @@
             android:layout_height="fill_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:weightSum="2" >
+            android:weightSum="3" >
 
             <RadioButton
                 android:id="@+id/radioButton1"
@@ -43,7 +42,7 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:gravity="center"
-                android:text="Fast food" />
+                android:text="Coffee" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
@@ -51,17 +50,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Restaurant" />
+                android:text="Beer" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Cocktail" />
         </RadioGroup>
     </LinearLayout>
 
-    <!--
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/linearLayout1"
-        android:background="@android:color/darker_gray" />
-    -->
+
 
     <TextView
         android:id="@+id/textRangeOfPrices"
@@ -92,13 +93,6 @@
             android:gravity="center" />
     </LinearLayout>
 
-    <!--
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/linearLayout2"
-        android:background="@android:color/darker_gray" />
-    -->
 
     <TextView
         android:id="@+id/textViewDistance"
@@ -108,9 +102,9 @@
         android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="#449def"
+        android:background="@android:color/holo_blue_light"
         android:gravity="center"
-        android:text="Distance in meters"
+        android:text="#449def"
         android:textSize="22sp" />
 
     <LinearLayout
@@ -137,7 +131,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@layout/blue_button"
-        android:onClick="generateRestaurant"
+        android:onClick="generateDrinks"
         android:text="Generate" />
 
 </RelativeLayout>
