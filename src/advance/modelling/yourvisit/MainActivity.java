@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	Button btnShowLocation;
+	Location location;
 	ImageButton btnShowLocationImage;
 
 	private ProgressBar mProgressBar;
@@ -77,6 +79,12 @@ public class MainActivity extends Activity {
 				// check if GPS enabled
 				if (gps.canGetLocation()) {
 
+					// btnShowLocation.setVisibility(View.GONE);
+					ImageButton imageLocationFound = (ImageButton) findViewById(R.id.locationImageButton);
+
+					imageLocationFound.setVisibility(View.VISIBLE);
+					imageLocationFound.startAnimation(animTranslate);
+
 					latitude = gps.getLatitude();
 					longitude = gps.getLongitude();
 
@@ -104,6 +112,13 @@ public class MainActivity extends Activity {
 
 			}
 		});
+	}
+
+	public void locationResolver(View v) {
+		Intent i = new Intent(this,LocationResolver.class);
+		i.putExtra("Latitude", latitude);
+		i.putExtra("Longitude", longitude);
+		startActivity(i);
 	}
 
 	public Toast showToastText(String text) {
@@ -210,8 +225,9 @@ public class MainActivity extends Activity {
 			mProgressBar.setVisibility(View.GONE);
 			try {
 				if (!internetAccess) {
-					Toast.makeText(getApplicationContext(),
-							"Unable to find location, turn on your internet",
+					Toast.makeText(
+							getApplicationContext(),
+							"Unable to retrieve the name of the location, turn on your internet",
 							Toast.LENGTH_LONG).show();
 				}
 				addressName.setTextColor(Color.parseColor("#449def"));

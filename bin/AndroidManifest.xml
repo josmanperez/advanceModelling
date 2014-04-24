@@ -49,6 +49,14 @@
             android:name="advance.modelling.yourvisit.ShowHotel"
             android:label="@string/hotel_name" >
         </activity>
+        <activity
+            android:name="advance.modelling.yourvisit.LocationResolver"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="advance.modelling.yourvisit.PlaceRecorder"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

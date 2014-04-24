@@ -17,7 +17,21 @@
         android:adjustViewBounds="true"
         android:background="@layout/blue_button"
         android:scaleType="fitXY"
-        android:src="@drawable/search" />
+        android:src="@drawable/ic_action_location_searching"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/locationImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:background="@layout/blue_button"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_action_location_found"
+        android:visibility="gone"
+        android:onClick="locationResolver" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -31,8 +45,7 @@
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
+            android:layout_height="wrap_content" >
 
             <Button
                 style="@style/ButtonText"
@@ -40,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@layout/blue_button"
+                android:drawableStart="@drawable/ic_action_accept"
                 android:onClick="restaurantChoice"
                 android:text="Restaurant" />
         </TableRow>
@@ -56,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@layout/blue_button"
+                android:drawableStart="@drawable/ic_action_accept"
                 android:onClick="drinksChoice"
                 android:text="Drinks" />
         </TableRow>
@@ -72,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@layout/blue_button"
+                android:drawableStart="@drawable/ic_action_accept"
                 android:onClick="hotelChoice"
                 android:text="Hotels" />
         </TableRow>
