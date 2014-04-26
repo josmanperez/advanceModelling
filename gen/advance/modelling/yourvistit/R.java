@@ -43,7 +43,7 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout=0x7f0a0006;
-        public static final int action_settings=0x7f0a0028;
+        public static final int action_settings=0x7f0a0029;
         public static final int buttonGenerateRestaurant=0x7f0a0018;
         public static final int imageViewFlag=0x7f0a0023;
         public static final int latitudeText=0x7f0a0007;
@@ -54,6 +54,7 @@ public final class R {
         public static final int locationImageButton=0x7f0a0001;
         public static final int longitudText=0x7f0a0009;
         public static final int progressBar1=0x7f0a0008;
+        public static final int progressBarLocationResolver=0x7f0a0026;
         public static final int radioButton1=0x7f0a000f;
         public static final int radioButton2=0x7f0a0010;
         public static final int radioButton3=0x7f0a0011;
@@ -79,10 +80,10 @@ public final class R {
         public static final int textViewDistance=0x7f0a0015;
         public static final int textViewRating=0x7f0a001c;
         public static final int textViewResolverPlace=0x7f0a0025;
-        public static final int textViewShowRestaurant=0x7f0a0027;
+        public static final int textViewShowRestaurant=0x7f0a0028;
         public static final int titleMain=0x7f0a000a;
         public static final int typeDrinks=0x7f0a000c;
-        public static final int typeRestaurant=0x7f0a0026;
+        public static final int typeRestaurant=0x7f0a0027;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

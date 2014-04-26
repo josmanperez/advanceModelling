@@ -31,7 +31,9 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class LocationResolver extends Activity {
@@ -39,6 +41,8 @@ public class LocationResolver extends Activity {
 	Location location;
 	PlaceRecord place = null;
 	private final String TAG = "GPS-Tracking";
+
+	ProgressBar mProgressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class LocationResolver extends Activity {
 		setContentView(R.layout.location_resolver);
 
 		Intent pastIntent = getIntent();
+
+		mProgressBar = (ProgressBar) findViewById(R.id.progressBarLocationResolver);
 
 		double latitude = pastIntent.getDoubleExtra("Latitude", 0);
 		double longitude = pastIntent.getDoubleExtra("Longitude", 0);
@@ -69,7 +75,8 @@ public class LocationResolver extends Activity {
 
 	}
 
-	class PlaceDownloaderTask2 extends AsyncTask<Location, Void, PlaceRecord> {
+	class PlaceDownloaderTask2 extends
+			AsyncTask<Location, Integer, PlaceRecord> {
 
 		// Change to false if you don't have network access
 		private static final boolean HAS_NETWORK = true;
@@ -86,6 +93,13 @@ public class LocationResolver extends Activity {
 				LocationManager.NETWORK_PROVIDER);
 		private final Location mockLoc2 = new Location(
 				LocationManager.NETWORK_PROVIDER);
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			mProgressBar.setVisibility(View.VISIBLE);
+		}
 
 		@Override
 		protected PlaceRecord doInBackground(Location... location) {
@@ -116,6 +130,13 @@ public class LocationResolver extends Activity {
 
 			return place;
 
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			mProgressBar.setProgress(values[0]);
+			super.onProgressUpdate(values);
 		}
 
 		private PlaceRecord getPlaceFromURL(String... params) {
@@ -239,6 +260,8 @@ public class LocationResolver extends Activity {
 		protected void onPostExecute(PlaceRecord result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
+
+			mProgressBar.setVisibility(View.GONE);
 
 			// Refresh the values
 			ImageView imageFlag = (ImageView) findViewById(R.id.imageViewFlag);

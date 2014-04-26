@@ -28,4 +28,13 @@
         android:layout_centerHorizontal="true"
         android:textSize="22sp" />
 
+    <ProgressBar
+        android:id="@+id/progressBarLocationResolver"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
 </RelativeLayout>
