@@ -10,10 +10,11 @@ package advance.modelling.yourvistit;
 public final class R {
     public static final class anim {
         public static final int alpha=0x7f040000;
-        public static final int exit_layout=0x7f040001;
-        public static final int in_layout=0x7f040002;
-        public static final int rotate=0x7f040003;
-        public static final int translate=0x7f040004;
+        public static final int anim_off=0x7f040001;
+        public static final int exit_layout=0x7f040002;
+        public static final int in_layout=0x7f040003;
+        public static final int rotate=0x7f040004;
+        public static final int translate=0x7f040005;
     }
     public static final class array {
         public static final int range_distance=0x7f060001;

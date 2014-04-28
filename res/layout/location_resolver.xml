@@ -14,14 +14,16 @@
 
     <TextView
         android:id="@+id/textViewCountryName"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageViewFlag"
         android:layout_centerHorizontal="true"
-        android:textSize="22sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/textViewResolverPlace"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewCountryName"

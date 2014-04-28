@@ -43,6 +43,12 @@ public class MainActivity extends Activity {
 	Animation animAlpha;
 	Animation animTranslate;
 	Animation animRotate;
+	Animation animTranslateOff;
+
+	TextView textLatitude;
+	TextView textLongitude;
+
+	ImageButton imageLocationFound;
 
 	// GPSTracker class
 	GPSTracker gps;
@@ -58,6 +64,8 @@ public class MainActivity extends Activity {
 
 		animRotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
+		animTranslateOff = AnimationUtils.loadAnimation(this, R.anim.anim_off);
+
 		// This is for showing the address
 		// final Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
 
@@ -67,6 +75,8 @@ public class MainActivity extends Activity {
 
 		addressName = (TextView) findViewById(R.id.textAddress);
 
+		imageLocationFound = (ImageButton) findViewById(R.id.locationImageButton);
+
 		// show location button click event
 		btnShowLocationImage.setOnClickListener(new View.OnClickListener() {
 
@@ -74,23 +84,27 @@ public class MainActivity extends Activity {
 			public void onClick(View arg0) {
 				// create class object
 				arg0.startAnimation(animTranslate);
+				arg0.setVisibility(View.INVISIBLE);
+				btnShowLocationImage.setVisibility(View.GONE);
+				
 				gps = new GPSTracker(MainActivity.this);
 
 				// check if GPS enabled
 				if (gps.canGetLocation()) {
 
 					// btnShowLocation.setVisibility(View.GONE);
-					ImageButton imageLocationFound = (ImageButton) findViewById(R.id.locationImageButton);
+					// ImageButton imageLocationFound = (ImageButton)
+					// findViewById(R.id.locationImageButton);
 
-					imageLocationFound.setVisibility(View.VISIBLE);
-					imageLocationFound.startAnimation(animTranslate);
+					// imageLocationFound.setVisibility(View.VISIBLE);
+					// imageLocationFound.startAnimation(animTranslate);
 
 					latitude = gps.getLatitude();
 					longitude = gps.getLongitude();
 
 					// Show the city on the text field
-					TextView textLatitude = (TextView) findViewById(advance.modelling.yourvistit.R.id.latitudeText);
-					TextView textLongitude = (TextView) findViewById(advance.modelling.yourvistit.R.id.longitudText);
+					textLatitude = (TextView) findViewById(advance.modelling.yourvistit.R.id.latitudeText);
+					textLongitude = (TextView) findViewById(advance.modelling.yourvistit.R.id.longitudText);
 
 					new LoadProgressBar().execute(latitude, longitude);
 
@@ -100,8 +114,8 @@ public class MainActivity extends Activity {
 					textLongitude.setTextColor(Color.parseColor("#449def"));
 					textLongitude.setText("Longitude: "
 							+ Double.valueOf(longitude).toString());
-					textLatitude.setVisibility(View.VISIBLE);
-					textLongitude.setVisibility(View.VISIBLE);
+					// textLatitude.setVisibility(View.VISIBLE);
+					// textLongitude.setVisibility(View.VISIBLE);
 
 				} else {
 					// can't get location
@@ -115,7 +129,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void locationResolver(View v) {
-		Intent i = new Intent(this,LocationResolver.class);
+		Intent i = new Intent(this, LocationResolver.class);
 		i.putExtra("Latitude", latitude);
 		i.putExtra("Longitude", longitude);
 		startActivity(i);
@@ -191,6 +205,7 @@ public class MainActivity extends Activity {
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
 			mProgressBar.setVisibility(View.VISIBLE);
+
 			super.onPreExecute();
 
 		}
@@ -223,6 +238,12 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			mProgressBar.setVisibility(View.GONE);
+			textLatitude.setVisibility(View.VISIBLE);
+			textLongitude.setVisibility(View.VISIBLE);
+
+			imageLocationFound.setVisibility(View.VISIBLE);
+			//imageLocationFound.startAnimation(animTranslateOff);
+
 			try {
 				if (!internetAccess) {
 					Toast.makeText(

@@ -2,7 +2,6 @@ package advance.modelling.yourvisit;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
@@ -25,22 +24,26 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LocationResolver extends Activity {
 
 	Location location;
 	PlaceRecord place = null;
 	private final String TAG = "GPS-Tracking";
+
+	// Change to false if you don't have network access
+	private static boolean HAS_NETWORK = true;
 
 	ProgressBar mProgressBar;
 
@@ -58,8 +61,18 @@ public class LocationResolver extends Activity {
 		double latitude = pastIntent.getDoubleExtra("Latitude", 0);
 		double longitude = pastIntent.getDoubleExtra("Longitude", 0);
 
-		// Toast.makeText(this, "lat: " + latitude + " Lon: " + longitude,
-		// Toast.LENGTH_LONG).show();
+		// Check if we really had a GPS unit working on the device
+		if ((latitude == 0.0) && (longitude == 0.0)) {
+			HAS_NETWORK = false;
+			Log.i(TAG,
+					String.valueOf(latitude + longitude) + " "
+							+ String.valueOf(HAS_NETWORK));
+		}
+
+		Log.i(TAG,
+				String.valueOf(latitude + longitude) + " "
+						+ String.valueOf(HAS_NETWORK));
+
 
 		location = new Location("locationGeoNames");
 		location.setLatitude(latitude);
@@ -78,9 +91,6 @@ public class LocationResolver extends Activity {
 	class PlaceDownloaderTask2 extends
 			AsyncTask<Location, Integer, PlaceRecord> {
 
-		// Change to false if you don't have network access
-		private static final boolean HAS_NETWORK = true;
-
 		Bitmap bmp;
 
 		// TODO - put your www.geonames.org account name here.
@@ -89,10 +99,6 @@ public class LocationResolver extends Activity {
 		private HttpURLConnection mHttpUrl;
 		// private WeakReference<PlaceViewActivity> mParent;
 		private final Bitmap mStubBitmap = null;
-		private final Location mockLoc1 = new Location(
-				LocationManager.NETWORK_PROVIDER);
-		private final Location mockLoc2 = new Location(
-				LocationManager.NETWORK_PROVIDER);
 
 		@Override
 		protected void onPreExecute() {
@@ -111,21 +117,17 @@ public class LocationResolver extends Activity {
 				if ("" != place.getCountryName()) {
 					place.setLocation(location[0]);
 				} else {
+					Log.i(TAG,"null");
 					place = null;
 				}
 
 			} else {
 				place = new PlaceRecord(location[0]);
 				// Log.i(TAG,location[0].toString());
-				if (location[0].distanceTo(mockLoc1) < 100) {
-					place.setCountryName("United States");
-					place.setPlace("The Greenhouse");
-					place.setFlagBitmap(mStubBitmap);
-				} else {
-					place.setCountryName("United States");
-					place.setPlace("Berwyn");
-					place.setFlagBitmap(mStubBitmap);
-				}
+				place.setCountryName("No country name");
+				place.setPlace("No place name");
+				place.setFlagBitmap(mStubBitmap);
+
 			}
 
 			return place;
@@ -247,9 +249,14 @@ public class LocationResolver extends Activity {
 
 		private String generateURL(String username, Location location) {
 
+			Log.i(TAG, "http://www.geonames.org/findNearbyPlaceName?username="
+					+ username + "&style=full&lat=" + location.getLatitude()
+					+ "&lng=" + location.getLongitude());
+
 			return "http://www.geonames.org/findNearbyPlaceName?username="
 					+ username + "&style=full&lat=" + location.getLatitude()
 					+ "&lng=" + location.getLongitude();
+
 		}
 
 		private String generateFlagURL(String countryCode) {
@@ -265,41 +272,26 @@ public class LocationResolver extends Activity {
 
 			// Refresh the values
 			ImageView imageFlag = (ImageView) findViewById(R.id.imageViewFlag);
+
+			Animation anim = AnimationUtils.makeInAnimation(
+					getApplicationContext(), true);
+
 			imageFlag.setImageBitmap(bmp);
-
-			// try {
-			// URL url = new URL(place.getFlagUrl());
-			// HttpURLConnection connection = (HttpURLConnection)
-			// url.openConnection();
-			// connection.setDoInput(true);
-			// connection.connect();
-			// InputStream input = connection.getInputStream();
-			// //Bitmap myBitmap = BitmapFactory.decodeStream(input);
-			// //imageFlag.setImageBitmap(myBitmap);
-			// } catch (IOException e) {
-			// e.printStackTrace();
-			// }
-
-			// URL url;
-			// try {
-			// url = new URL(place.getFlagUrl());
-			// Bitmap bmp = BitmapFactory.decodeStream(url.openConnection()
-			// .getInputStream());
-			// // imageFlag.setImageBitmap(bmp);
-			// } catch (MalformedURLException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
+			imageFlag.startAnimation(anim);
 
 			if (place != null) {
 				TextView textVCountry = (TextView) findViewById(R.id.textViewCountryName);
-				textVCountry.setText(place.getCountryName());
+				textVCountry.setText("Country: " + place.getCountryName());
 				TextView textVPlace = (TextView) findViewById(R.id.textViewResolverPlace);
-				textVPlace.setText(place.getPlace());
+				textVPlace.setText("Place: " + place.getPlace());
 			}
+
+			if (!HAS_NETWORK) {
+				Toast.makeText(getApplicationContext(),
+						"Your Lat and Long are wrong, please try again",
+						Toast.LENGTH_LONG).show();
+			}
+
 		}
 	}
 }
