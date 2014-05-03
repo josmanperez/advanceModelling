@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Address;
+import android.util.Log;
 
 /**
  * A class for handling geocoding and reverse geocoding. Geocoding is the
@@ -115,6 +116,7 @@ public final class Geocoder
         url.append(longitude);
         url.append("&language=");
         url.append(Locale.getDefault().getLanguage());
+        Log.i("GPS-Tracking", url.toString());
 
 //        final byte[] data = WebserviceClient.download(url.toString());
 //        if (data != null) {

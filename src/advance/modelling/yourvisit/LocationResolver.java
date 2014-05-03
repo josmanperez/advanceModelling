@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -56,6 +57,14 @@ public class LocationResolver extends Activity {
 
 		Intent pastIntent = getIntent();
 
+		// map = ((MapFragment)
+		// getFragmentManager().findFragmentById(R.id.map)).getMap();
+		// map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+
+		// MapView mapView = (MapView) findViewById(R.id.map);
+		// mapView.setBuiltInZoomControls(true);
+		// mapView.setVisibility(View.GONE);
+
 		mProgressBar = (ProgressBar) findViewById(R.id.progressBarLocationResolver);
 
 		double latitude = pastIntent.getDoubleExtra("Latitude", 0);
@@ -73,7 +82,6 @@ public class LocationResolver extends Activity {
 				String.valueOf(latitude + longitude) + " "
 						+ String.valueOf(HAS_NETWORK));
 
-
 		location = new Location("locationGeoNames");
 		location.setLatitude(latitude);
 		location.setLongitude(longitude);
@@ -86,6 +94,11 @@ public class LocationResolver extends Activity {
 		// Log.i("Resolver", countryName);
 		// Toast.makeText(this, countryName, Toast.LENGTH_LONG).show();
 
+	}
+	
+	public void showMap(View v) {
+		Intent i = new Intent(this, ViewMap.class);
+		startActivity(i);
 	}
 
 	class PlaceDownloaderTask2 extends
@@ -117,7 +130,7 @@ public class LocationResolver extends Activity {
 				if ("" != place.getCountryName()) {
 					place.setLocation(location[0]);
 				} else {
-					Log.i(TAG,"null");
+					Log.i(TAG, "null");
 					place = null;
 				}
 
@@ -126,6 +139,7 @@ public class LocationResolver extends Activity {
 				// Log.i(TAG,location[0].toString());
 				place.setCountryName("No country name");
 				place.setPlace("No place name");
+				place.setAdminName1("No admin name");
 				place.setFlagBitmap(mStubBitmap);
 
 			}
@@ -183,6 +197,7 @@ public class LocationResolver extends Activity {
 			String countryName = "";
 			String countryCode = "";
 			String placeName = "";
+			String adminName1 = "";
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory
 					.newInstance();
@@ -209,6 +224,8 @@ public class LocationResolver extends Activity {
 								countryCode = curr2.getTextContent();
 							} else if (curr2.getNodeName().equals("name")) {
 								placeName = curr2.getTextContent();
+							} else if (curr2.getNodeName().equals("adminName1")) {
+								adminName1 = curr2.getTextContent();
 							}
 						}
 					}
@@ -244,7 +261,7 @@ public class LocationResolver extends Activity {
 			}
 
 			return new PlaceRecord(generateFlagURL(countryCode.toLowerCase()),
-					countryName, placeName);
+					countryName, placeName, adminName1);
 		}
 
 		private String generateURL(String username, Location location) {
@@ -281,9 +298,13 @@ public class LocationResolver extends Activity {
 
 			if (place != null) {
 				TextView textVCountry = (TextView) findViewById(R.id.textViewCountryName);
-				textVCountry.setText("Country: " + place.getCountryName());
+				textVCountry.setText(place.getCountryName());
+				TextView textVAdminName1 = (TextView) findViewById(R.id.textViewResolverAdminName1);
+				textVAdminName1.setText(place.getAdminName1());
 				TextView textVPlace = (TextView) findViewById(R.id.textViewResolverPlace);
-				textVPlace.setText("Place: " + place.getPlace());
+				textVPlace.setText(place.getPlace());
+				Button imageMap = (Button) findViewById(R.id.imageButtonMap);
+				imageMap.setVisibility(View.VISIBLE);
 			}
 
 			if (!HAS_NETWORK) {
@@ -294,4 +315,5 @@ public class LocationResolver extends Activity {
 
 		}
 	}
+
 }

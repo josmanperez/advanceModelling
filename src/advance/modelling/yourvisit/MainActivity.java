@@ -85,8 +85,7 @@ public class MainActivity extends Activity {
 				// create class object
 				arg0.startAnimation(animTranslate);
 				arg0.setVisibility(View.INVISIBLE);
-				btnShowLocationImage.setVisibility(View.GONE);
-				
+
 				gps = new GPSTracker(MainActivity.this);
 
 				// check if GPS enabled
@@ -215,12 +214,12 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			Geocoder geoCoder2 = new Geocoder(getApplicationContext());
 			try {
-				Log.i(TAG, params[0] + " " + params[1]);
+				Log.i(TAG, "params: " + params[0] + " " + params[1]);
 				address = geoCoder2.getFromLocation(params[0], params[1],
 						MAX_NUMBER_OF_RESULT_ADDRESS);
 				Log.i(TAG, "aqui " + address.toString());
 			} catch (Exception e) { // // TODO Auto-generated catch block
-				Log.i(TAG, e.toString() + " cachis ");
+				Log.i(TAG, e.toString() + " cachis " );
 				internetAccess = false;
 
 			}
@@ -242,7 +241,7 @@ public class MainActivity extends Activity {
 			textLongitude.setVisibility(View.VISIBLE);
 
 			imageLocationFound.setVisibility(View.VISIBLE);
-			//imageLocationFound.startAnimation(animTranslateOff);
+			// imageLocationFound.startAnimation(animTranslateOff);
 
 			try {
 				if (!internetAccess) {

@@ -9,11 +9,13 @@ public class PlaceRecord {
 	private String mPlaceName;
 	private Bitmap mFlagBitmap;
 	private Location mLocation;
+	private String mAdminName1;
 
-	public PlaceRecord(String flagUrl, String country, String place) {
+	public PlaceRecord(String flagUrl, String country, String place, String adminName) {
 		this.mFlagUrl = flagUrl;
 		this.mCountryName = country;
 		this.mPlaceName = place;
+		this.mAdminName1 = adminName;
 	}
 
 	public PlaceRecord(Location location) {
@@ -30,6 +32,14 @@ public class PlaceRecord {
 
 	public String getCountryName() {
 		return mCountryName;
+	}
+	
+	public String getAdminName1() {
+		return mAdminName1;
+	}
+	
+	public void setAdminName1(String adminName) {
+		this.mAdminName1 = adminName;
 	}
 
 	public void setCountryName(String country) {
